@@ -18,10 +18,18 @@ public class BirdScirpt : MonoBehaviour
     void Update()
     {
         transform.Rotate(new Vector3(0, 0, -45));
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
+            rigidbody2d.velocity = new Vector2(0, 0);
             rigidbody2d.AddForce(new Vector2(0, 200));
-            transform.Rotate(new Vector3(0,0,45));
+        }
+        if (rigidbody2d.velocity.y > 0)
+        {
+            transform.eulerAngles = new Vector3(0, 0, 45);
+        }
+        else
+        {
+            transform.eulerAngles = new Vector3(0, 0, -45);
         }
     }
 
