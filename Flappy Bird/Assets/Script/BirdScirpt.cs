@@ -1,16 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BirdScirpt : MonoBehaviour
 {
 
     private Rigidbody2D rigidbody2d;
     private int skor = 0;
-    
+
+    private bool gameOver = true;
+    ControllScript GameOver;
+
+    [SerializeField] private Text skorText;
+
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+        GameOver = GameObject.FindGameObjectWithTag("GameOver").GetComponent<ControllScript>();
         
     }
 
@@ -18,7 +25,7 @@ public class BirdScirpt : MonoBehaviour
     void Update()
     {
         transform.Rotate(new Vector3(0, 0, -45));
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && gameOver)
         {
             rigidbody2d.velocity = new Vector2(0, 0);
             rigidbody2d.AddForce(new Vector2(0, 200));
@@ -38,6 +45,12 @@ public class BirdScirpt : MonoBehaviour
         if (collision.gameObject.tag == "TriggerTag")
         {
             skor = skor + 1;
+            skorText.text = "SKOR = " + skor;
+        }
+        if (collision.gameObject.tag == "GameOverTag")
+        {
+            gameOver = false;
+            GameOver.GameOver();
         }
     }
 }
