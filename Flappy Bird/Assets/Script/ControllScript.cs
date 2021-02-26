@@ -5,12 +5,7 @@ using UnityEngine;
 public class ControllScript : MonoBehaviour
 {
     
-    public GameObject backgroundOne;
-    
-    public GameObject backgronudTwo;
 
-    private Rigidbody2D rigidbodyOne;
-    private Rigidbody2D rigidbodyTwo;
 
     private float length = 0;
 
@@ -27,13 +22,7 @@ public class ControllScript : MonoBehaviour
 
     void Start()
     {
-        rigidbodyOne = backgroundOne.GetComponent<Rigidbody2D>();
-        rigidbodyTwo = backgronudTwo.GetComponent<Rigidbody2D>();
 
-        rigidbodyOne.velocity = new Vector2(speed, 0);
-        rigidbodyTwo.velocity = new Vector2(speed, 0);
-
-        length = backgroundOne.GetComponent<BoxCollider2D>().size.x;
 
         obstalceArray = new GameObject[howManyObstalces];
 
@@ -50,21 +39,13 @@ public class ControllScript : MonoBehaviour
     
     void Update()
     {
-        if (backgroundOne.transform.position.x <= -length) 
-        {
-            backgroundOne.transform.position += new Vector3(length * 2, 0, 0);
-        }
-        if (backgronudTwo.transform.position.x <= -length)
-        { 
-           backgronudTwo.transform.position += new Vector3(length * 2, 0, 0);
-        }
 
         time += Time.deltaTime;
         if (time >= 2f)
         {
             time = 0;
-            postionY = Random.Range(-1f, 1.3f);
-            obstalceArray[counter].transform.position = new Vector3(18, postionY);
+            postionY = Random.Range(-0.285f, 0.300f);
+            obstalceArray[counter].transform.position = new Vector3(0.115f, postionY);
             counter++;
             if (counter >= obstalceArray.Length)
             {
@@ -79,8 +60,6 @@ public class ControllScript : MonoBehaviour
         for (int i = 0; i < obstalceArray.Length; i++)
         {
             obstalceArray[i].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            rigidbodyOne.velocity = Vector2.zero;
-            rigidbodyTwo.velocity = Vector2.zero;
         }
     }
 }
